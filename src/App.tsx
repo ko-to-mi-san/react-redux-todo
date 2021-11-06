@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Header as _Header } from './Header'
 import { Column } from './Column'
 
-function App() {
+export function App() {
   return (
     <Container>
       <Header />
@@ -13,27 +13,22 @@ function App() {
           <Column
             title="TODO"
             cards={[
-              { id: 'a', text:'朝食をとる' },
-              { id: 'b', text:'歯を磨く' },
-              { id: 'c', text:'ランニング' },
+              { id: 'a', text: '朝食をとる🍞' },
+              { id: 'b', text: 'SNSをチェックする🐦' },
+              { id: 'c', text: '布団に入る (:3[___]' },
             ]}
           />
           <Column
             title="Doing"
             cards={[
-              { id: 'a', text:'プログラミング' },
-              { id: 'b', text:'風呂に入る' },
+              { id: 'd', text: '顔を洗う👐' },
+              { id: 'e', text: '歯を磨く🦷' },
             ]}
           />
-          <Column
-            title="Doing"
-            cards={[]}
-          />
+          <Column title="Waiting" cards={[]} />
           <Column
             title="Done"
-            cards={[
-              { id: 'a', text:'布団から出る (:3っ)っ -=三[＿＿]' },
-            ]}
+            cards={[{ id: 'f', text: '布団から出る (:3っ)っ -=三[＿＿]' }]}
           />
         </HorizontalScroll>
       </MainArea>
