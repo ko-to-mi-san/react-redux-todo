@@ -9,10 +9,12 @@ export function Card({
   text,
   onDragStart,
   onDragEnd,
+  onDeleteClick,
 }: {
     text?: string
     onDragStart?(): void
     onDragEnd?(): void
+    onDeleteClick?(): void
 }) {
   const [drag, setDrag] = useState(false)
 
@@ -40,7 +42,7 @@ export function Card({
         ),
       )}
 
-      <DeleteButton />
+      <DeleteButton onClick={onDeleteClick} />
     </Container>
   )
 }
@@ -111,27 +113,27 @@ function DropArea({
  }) {
    const [isTarget, setIsTarget] = useState(false)
    const visible = !disabled && isTarget
- 
+
    const [dragOver, onDragOver] = useDragAutoLeave()
- 
+
    return (
      <DropAreaContainer
        style={style}
        className={className}
        onDragOver={ev => {
          if (disabled) return
- 
+
          ev.preventDefault()
          onDragOver(() => setIsTarget(false))
        }}
        onDragEnter={() => {
          if (disabled || dragOver.current) return
- 
+
          setIsTarget(true)
        }}
        onDrop={() => {
          if (disabled) return
- 
+
          setIsTarget(false)
          onDrop?.()
        }}
@@ -142,12 +144,12 @@ function DropArea({
            borderWidth: !visible ? 0 : undefined,
          }}
        />
- 
+
        {children}
      </DropAreaContainer>
    )
  }
- 
+
  /**
   * dragOver イベントが継続中かどうかのフラグを ref として返す
   *
@@ -158,16 +160,16 @@ function DropArea({
  function useDragAutoLeave(timeout: number = 100) {
    const dragOver = useRef(false)
    const timer = useRef(0)
- 
+
    return [
      dragOver,
- 
+
      /**
       * @param onDragLeave フラグが false になるときに呼ぶコールバック
       */
      (onDragLeave?: () => void) => {
        clearTimeout(timer.current)
- 
+
        dragOver.current = true
        timer.current = setTimeout(() => {
          dragOver.current = false
@@ -176,13 +178,13 @@ function DropArea({
      },
    ] as const
  }
- 
+
  const DropAreaContainer = styled.div`
    > :not(:first-child) {
      margin-top: 8px;
    }
  `
- 
+
  const DropAreaIndicator = styled.div`
    height: 40px;
    border: dashed 3px ${color.Gray};
